@@ -6,7 +6,8 @@ class Board:
      self.t.hideturtle()
      self.t.penup()
      self.t.setheading(0)
-     self.tiles = [[0,0,0,0], [2,2,2,2], [0,0,0,0], [0,0,0,0]]
+     self.tiles = [[1,2,3,4], [5,6,1024,7], [8,9,20,10], [11,12,13,0]]
+     self.game_over = False
      self.color_dict = {
             2: "lightblue",
             4: "lightgreen",
@@ -128,8 +129,40 @@ class Board:
         self.draw_tiles()
 
 
+    def check_win(self):
+        for j in range(4):
+            for i in range(1, 4):
+                if self.tiles[i][j] == 2048:
+                    return True
+        return False 
+    
+    def print_win(self):
+        bob = Turtle()
+        bob.hideturtle()
+        bob.penup()
+        bob.goto(0,240)
+        bob.write("well done! You Won!", align="center", font=("Arial", 40, "normal")) 
+
+    def no_moves(self):
+        for i in range(4):
+            for j in range(4):
+                if self.tiles[i][j] == 0:
+                    return False 
+                if (i > 0 and self.tiles[i][j] == self.tiles[i - 1][j]) or \
+                (i < 3 and self.tiles[i][j] == self.tiles[i + 1][j]) or \
+                (j > 0 and self.tiles[i][j] == self.tiles[i][j - 1]) or \
+                (j < 3 and self.tiles[i][j] == self.tiles[i][j + 1]):
+                    return False
+        return True
 
 
+
+    def print_gameover(self):
+        bob = Turtle()
+        bob.hideturtle()
+        bob.penup()
+        bob.goto(0,240)
+        bob.write("sorry you have lost!", align="center", font=("Arial", 40, "normal")) 
 
 
 
