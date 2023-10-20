@@ -21,7 +21,7 @@ class Board:
 
     def move_right(self):
         for row in range(4):
-            for col in range(3, 0, -1):
+            for col in range(0,3):
                 if self.tiles[row][col] != 0:
                     x = col
                     while x < 3 and self.tiles[row][x + 1] == 0:
@@ -31,7 +31,22 @@ class Board:
                     if x < 3 and self.tiles[row][x + 1] == self.tiles[row][x]:
                         self.tiles[row][x + 1] += self.tiles[row][x]
                         self.tiles[row][x] = 0
+        for row in range(4):
+            for col in range(3,0,-1):
+                if self.tiles[row][col] != 0:
+                    x = col
+                    if  x < 3 and self.tiles[row][x + 1] == 0:
+                        self.tiles[row][x + 1] = self.tiles[row][x]
+                        self.tiles[row][x] = 0
+        
         self.draw_tiles()
+
+
+
+
+
+
+
 
                    
        
