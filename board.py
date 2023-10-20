@@ -6,17 +6,41 @@ class Board:
      self.t.hideturtle()
      self.t.penup()
      self.t.setheading(0)
-     self.tiles = [[0,0,0,0], [0,2,0,0], [0,0,0,0], [0,0,0,0]]
+     self.tiles = [[0,0,0,0], [2,2,2,2], [0,0,0,0], [0,0,0,0]]
+     self.color_dict = {
+            2: "lightblue",
+            4: "lightgreen",
+            8: "lightpink",
+            16: "lightyellow",
+            32: "lightcoral",
+            64: "lightsalmon",
+            128: "lightseagreen",
+            256: "lightblue",
+            512: "lightgreen",
+            1024: "lightpink",
+            2048: "lightyellow"
+        }
+
 
 
     def draw_tiles(self):
-       self.t.clear()
-       self.t.goto(-100,300)
-       for row  in self.tiles:
-          for num in row:
-             self.t.write(num)
-             self.t.forward(50) 
-          self.t.goto(-100, self.t.ycor() - 50)
+        self.t.clear()
+        cell_size = 50
+
+        for row in range(4):
+            for col in range(4):
+                num = self.tiles[row][col]
+                color = self.color_dict.get(num, "lightgray") 
+                self.t.goto(-175 + col * cell_size + cell_size / 2, 175 - row * cell_size - cell_size / 2)
+                self.t.begin_fill()
+                self.t.fillcolor(color)
+                for _ in range(4):
+                    self.t.forward(cell_size)
+                    self.t.right(90)
+                self.t.end_fill()
+                self.t.goto(-125 + col * cell_size, 125 - row * cell_size - 10)  
+                self.t.write(num, align="center", font=("Arial", 16, "normal"))
+
 
 
 
