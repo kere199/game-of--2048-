@@ -6,7 +6,7 @@ class Board:
      self.t.hideturtle()
      self.t.penup()
      self.t.setheading(0)
-     self.tiles = [[1,2,3,4], [5,6,1024,7], [8,9,20,10], [11,12,13,0]]
+     self.tiles = [[0,0,0,0], [0,0,2,0], [0,2,0,0], [0,0,0,0]]
      self.game_over = False
      self.color_dict = {
             2: "lightblue",
