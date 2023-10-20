@@ -6,7 +6,7 @@ class Board:
      self.t.hideturtle()
      self.t.penup()
      self.t.setheading(0)
-     self.tiles = [[0,0,0,2], [0,2,2,2], [0,0,2,2], [0,0,0,2]]
+     self.tiles = [[0,0,0,0], [0,2,0,0], [0,0,0,0], [0,0,0,0]]
 
 
     def draw_tiles(self):
@@ -33,6 +33,7 @@ class Board:
                         self.tiles[row][x - 1] += self.tiles[row][x]
                         self.tiles[row][x] = 0
 
+        self.create_random_2()
         self.draw_tiles()
 
 
@@ -48,7 +49,7 @@ class Board:
                     if x < 3 and self.tiles[row][x + 1] == self.tiles[row][x]:
                         self.tiles[row][x + 1] += self.tiles[row][x]
                         self.tiles[row][x] = 0
-
+        self.create_random_2()
         self.draw_tiles()
 
 
@@ -64,7 +65,7 @@ class Board:
                     if y > 0 and self.tiles[y - 1][col] == self.tiles[y][col]:
                         self.tiles[y - 1][col] += self.tiles[y][col]
                         self.tiles[y][col] = 0
-
+        self.create_random_2()
         self.draw_tiles()
 
     def move_down(self):
@@ -79,7 +80,27 @@ class Board:
                     if y < 3 and self.tiles[y + 1][col] == self.tiles[y][col]:
                         self.tiles[y + 1][col] += self.tiles[y][col]
                         self.tiles[y][col] = 0
+        self.create_random_2()
+        self.draw_tiles()
 
+    
+    def empty_spaces(self):
+        empty_spaces = []
+        for x in range(4):
+            for y in range(4):
+                if self.tiles[x][y] == 0:
+                    empty_spaces.append((x,y))
+        return empty_spaces
+
+
+
+
+    def create_random_2(self):
+        empties = self.empty_spaces()
+        i = random.randint(0,len(empties)-1)
+        row = empties[i][0]
+        col = empties[i][1]
+        self.tiles[row][col] = 2
         self.draw_tiles()
 
 
