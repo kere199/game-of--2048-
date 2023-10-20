@@ -6,7 +6,7 @@ class Board:
      self.t.hideturtle()
      self.t.penup()
      self.t.setheading(0)
-     self.tiles = [[0,0,0,0], [0,2,2,2], [0,0,2,0], [0,0,0,0]]
+     self.tiles = [[0,0,0,2], [0,2,2,2], [0,0,2,2], [0,0,0,2]]
 
 
     def draw_tiles(self):
@@ -19,9 +19,26 @@ class Board:
           self.t.goto(-100, self.t.ycor() - 50)
 
 
+
+    def move_left(self):
+        for row in range(4):
+            for col in range(1, 4):
+                if self.tiles[row][col] != 0:
+                    x = col
+                    while x > 0 and self.tiles[row][x - 1] == 0:
+                        self.tiles[row][x - 1] = self.tiles[row][x]
+                        self.tiles[row][x] = 0
+                        x -= 1
+                    if x > 0 and self.tiles[row][x - 1] == self.tiles[row][x]:
+                        self.tiles[row][x - 1] += self.tiles[row][x]
+                        self.tiles[row][x] = 0
+
+        self.draw_tiles()
+
+
     def move_right(self):
         for row in range(4):
-            for col in range(0,3):
+            for col in range(2, -1, -1):
                 if self.tiles[row][col] != 0:
                     x = col
                     while x < 3 and self.tiles[row][x + 1] == 0:
@@ -31,15 +48,42 @@ class Board:
                     if x < 3 and self.tiles[row][x + 1] == self.tiles[row][x]:
                         self.tiles[row][x + 1] += self.tiles[row][x]
                         self.tiles[row][x] = 0
-        for row in range(4):
-            for col in range(3,0,-1):
-                if self.tiles[row][col] != 0:
-                    x = col
-                    if  x < 3 and self.tiles[row][x + 1] == 0:
-                        self.tiles[row][x + 1] = self.tiles[row][x]
-                        self.tiles[row][x] = 0
-        
+
         self.draw_tiles()
+
+
+    def move_up(self):
+        for col in range(4):
+            for row in range(1, 4):
+                if self.tiles[row][col] != 0:
+                    y = row
+                    while y > 0 and self.tiles[y - 1][col] == 0:
+                        self.tiles[y - 1][col] = self.tiles[y][col]
+                        self.tiles[y][col] = 0
+                        y -= 1
+                    if y > 0 and self.tiles[y - 1][col] == self.tiles[y][col]:
+                        self.tiles[y - 1][col] += self.tiles[y][col]
+                        self.tiles[y][col] = 0
+
+        self.draw_tiles()
+
+    def move_down(self):
+        for col in range(4):
+            for row in range(2, -1, -1):
+                if self.tiles[row][col] != 0:
+                    y = row
+                    while y < 3 and self.tiles[y + 1][col] == 0:
+                        self.tiles[y + 1][col] = self.tiles[y][col]
+                        self.tiles[y][col] = 0
+                        y += 1
+                    if y < 3 and self.tiles[y + 1][col] == self.tiles[y][col]:
+                        self.tiles[y + 1][col] += self.tiles[y][col]
+                        self.tiles[y][col] = 0
+
+        self.draw_tiles()
+
+
+
 
 
 
